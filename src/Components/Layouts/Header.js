@@ -6,8 +6,10 @@ function Header() {
 	return (
 		<AppBar position="static" color="primary">
 			<Toolbar>
-				<Typography variant="title" color="inherit">
-					Header
+				<Typography
+					variant="title"
+					color="inherit">
+					Exercises
 				</Typography>
 			</Toolbar>
 		</AppBar>
