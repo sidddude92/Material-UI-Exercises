@@ -14,7 +14,7 @@ function Footer({ muscles }) {
 			<Tabs
 				indicatorColor="primary"
 				textColor="primary"
-				centered
+				scrollable
 				value={0}>
 				<Tab label="All" />
 				{muscles.map(muscle => (
