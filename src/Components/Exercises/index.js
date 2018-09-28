@@ -9,34 +9,57 @@ function Exercises({ exercises }) {
 	const styles = {
 		leftPane: {
 			padding: "10px",
-			textTransform: "capitalize"
+			textTransform: "capitalize",
+			height: 500,
+			overflowY: "auto"
 		},
 		rightPane: {
-			padding: "10px"
+			padding: "10px",
+			height: 500
 		}
 	};
 	return (
-		<div style={{ marginTop: "10px", marginBottom: "10px" }}>
+		<div
+			style={{
+				marginTop: "10px",
+				marginBottom: "10px"
+			}}>
 			<Grid container spacing={24}>
 				<Grid item xs>
 					<Paper style={styles.leftPane}>
-						{exercises.map(([group, exercises]) => (
-							<React.Fragment>
-								<Typography variant="body">{group}</Typography>
-								<List component="ul">
-									{exercises.map(({ title }) => (
-										<ListItem button>
-											<ListItemText primary={title} />
-										</ListItem>
-									))}
-								</List>
-							</React.Fragment>
-						))}
+						{exercises.map(
+							([group, exercises]) => (
+								<React.Fragment>
+									<Typography variant="body">
+										{group}
+									</Typography>
+									<List component="ul">
+										{exercises.map(
+											({ title }) => (
+												<ListItem button>
+													<ListItemText
+														primary={title}
+													/>
+												</ListItem>
+											)
+										)}
+									</List>
+								</React.Fragment>
+							)
+						)}
 					</Paper>
 				</Grid>
 
 				<Grid item xs>
-					<Paper style={styles.rightPane}>Right Pane</Paper>
+					<Paper style={styles.rightPane}>
+						<Typography variant="display1">
+							Welcome
+						</Typography>
+						<Typography variant="subheading">
+							Please Select a Exercise from the
+							list on the left
+						</Typography>
+					</Paper>
 				</Grid>
 			</Grid>
 		</div>
