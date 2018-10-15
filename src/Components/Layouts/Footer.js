@@ -2,11 +2,20 @@ import React from "react";
 import Paper from "@material-ui/core/Paper";
 import Tabs from "@material-ui/core/Tabs";
 import Tab from "@material-ui/core/Tab";
+
 function Footer({ muscles, onSelect, category }) {
+	const index = category
+		? muscles.findIndex(group => group === category) + 1
+		: 0;
+
 	const styles = {
 		root: {
 			flexGrow: 1
 		}
+	};
+
+	const onIndexSelected = (e, index) => {
+		onSelect(index === 0 ? "" : muscles[index - 1]);
 	};
 
 	return (
@@ -16,8 +25,8 @@ function Footer({ muscles, onSelect, category }) {
 				textColor="primary"
 				scrollable
 				scrollButtons="on"
-				value={0}
-				onChange={onSelect}>
+				value={index}
+				onChange={onIndexSelected}>
 				<Tab label="All" />
 				{muscles.map(muscle => (
 					<Tab key={muscle} label={muscle} />

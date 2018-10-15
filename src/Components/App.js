@@ -6,7 +6,7 @@ import { muscles, exercises } from "../store.js";
 import "./styles.css";
 
 class App extends React.Component {
-	state = { exercises, category: "" };
+	state = { exercises };
 
 	getExercisesByMuscles = () => {
 		return Object.entries(
