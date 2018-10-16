@@ -29,7 +29,7 @@ class App extends React.Component {
 		return (
 			<div className="App">
 				<Header />
-				<Exercises exercises={exercises} />
+				<Exercises exercises={exercises} category={category} />
 				<Footer
 					muscles={muscles}
 					onSelect={this.handleCategorySelected}

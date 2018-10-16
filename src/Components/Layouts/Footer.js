@@ -23,8 +23,7 @@ function Footer({ muscles, onSelect, category }) {
 			<Tabs
 				indicatorColor="primary"
 				textColor="primary"
-				scrollable
-				scrollButtons="on"
+				centered
 				value={index}
 				onChange={onIndexSelected}>
 				<Tab label="All" />

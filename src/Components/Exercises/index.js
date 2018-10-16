@@ -5,7 +5,7 @@ import Typography from "@material-ui/core/Typography";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
-function Exercises({ exercises }) {
+function Exercises({ exercises, category }) {
 	const styles = {
 		leftPane: {
 			padding: "10px",
@@ -28,36 +28,28 @@ function Exercises({ exercises }) {
 				<Grid item xs>
 					<Paper style={styles.leftPane}>
 						{exercises.map(
-							([group, exercises]) => (
-								<React.Fragment>
-									<Typography variant="body">
-										{group}
-									</Typography>
-									<List component="ul">
-										{exercises.map(
-											({ title }) => (
+							([group, exercises]) =>
+								!category || category === group ? (
+									<React.Fragment>
+										<Typography variant="body">{group}</Typography>
+										<List component="ul">
+											{exercises.map(({ title }) => (
 												<ListItem button>
-													<ListItemText
-														primary={title}
-													/>
+													<ListItemText primary={title} />
 												</ListItem>
-											)
-										)}
-									</List>
-								</React.Fragment>
-							)
+											))}
+										</List>
+									</React.Fragment>
+								) : null
 						)}
 					</Paper>
 				</Grid>
 
 				<Grid item xs>
 					<Paper style={styles.rightPane}>
-						<Typography variant="display1">
-							Welcome
-						</Typography>
+						<Typography variant="display1">Welcome</Typography>
 						<Typography variant="subheading">
-							Please Select a Exercise from the
-							list on the left
+							Please Select a Exercise from the list on the left
 						</Typography>
 					</Paper>
 				</Grid>
