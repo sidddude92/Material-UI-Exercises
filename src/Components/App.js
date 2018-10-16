@@ -6,7 +6,7 @@ import { muscles, exercises } from "../store.js";
 import "./styles.css";
 
 class App extends React.Component {
-	state = { exercises };
+	state = { exercises, exercise: {} };
 
 	getExercisesByMuscles = () => {
 		return Object.entries(
@@ -23,13 +23,24 @@ class App extends React.Component {
 	handleCategorySelected = category => {
 		this.setState({ category });
 	};
+
+	handleExerciseSelected = id => {
+		this.setState(({ exercises }) => ({
+			exercise: exercises.find(ex => ex.id === id)
+		}));
+	};
 	render() {
 		const exercises = this.getExercisesByMuscles();
-		const { category } = this.state;
+		const { category, exercise } = this.state;
 		return (
 			<div className="App">
 				<Header />
-				<Exercises exercises={exercises} category={category} />
+				<Exercises
+					exercise={exercise}
+					exercises={exercises}
+					category={category}
+					onSelect={this.handleExerciseSelected}
+				/>
 				<Footer
 					muscles={muscles}
 					onSelect={this.handleCategorySelected}
