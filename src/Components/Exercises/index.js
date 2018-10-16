@@ -27,20 +27,26 @@ function Exercises({
 			height: 500
 		}
 	};
-	return <div style={{ marginTop: "10px", marginBottom: "10px" }}>
+	return (
+		<div style={{ marginTop: "10px", marginBottom: "10px" }}>
 			<Grid container spacing={24}>
 				<Grid item xs>
 					<Paper style={styles.leftPane}>
-						{exercises.map(([group, exercises]) => (!category || category === group ? <React.Fragment>
+						{exercises.map(
+							([group, exercises]) =>
+								!category || category === group ? (
+									<React.Fragment key={group}>
 										<Typography variant="body">{group}</Typography>
 										<List component="ul">
 											{exercises.map(({ id, title }) => (
-												<ListItem button onClick={() => onSelect(id)}>
+												<ListItem button onClick={() => onSelect(id)} key={id}>
 													<ListItemText primary={title} />
 												</ListItem>
 											))}
 										</List>
-									</React.Fragment> : null))}
+									</React.Fragment>
+								) : null
+						)}
 					</Paper>
 				</Grid>
 
@@ -51,7 +57,8 @@ function Exercises({
 					</Paper>
 				</Grid>
 			</Grid>
-		</div>;
+		</div>
+	);
 }
 
 export default Exercises;
