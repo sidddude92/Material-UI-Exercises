@@ -7,9 +7,27 @@ import DialogTitle from "@material-ui/core/DialogTitle";
 import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
 import AddIcon from "@material-ui/icons/Add";
+import MenuItem from "@material-ui/core/MenuItem";
+import InputLabel from "@material-ui/core/InputLabel";
+import FormControl from "@material-ui/core/FormControl";
+import Select from "@material-ui/core/Select";
+
+import { withStyles } from "@material-ui/core/styles";
+
+const styles = theme => ({
+	FormControl: {
+		width: 500
+	}
+});
+
 class Create extends React.Component {
 	state = {
-		open: false
+		open: false,
+		exercise: {
+			title: "",
+			description: "",
+			muscles: ""
+		}
 	};
 	handleClickOpen = () => {
 		this.setState({ open: true });
@@ -19,7 +37,39 @@ class Create extends React.Component {
 		this.setState({ open: false });
 	};
 
+	handleChange = name => ({ target: { value } }) => {
+		this.setState({
+			exercise: {
+				...this.state.exercise,
+				[name]: value
+			}
+		});
+	};
+
+	handleSubmit = () => {
+		//TODO Validation
+		const { exercise } = this.state;
+		this.props.onCreate({
+			...exercise,
+			id: exercise.title.toLocaleLowerCase().replace(/ /g, "-")
+		});
+
+		this.setState({
+			open: false,
+			exercise: {
+				title: "",
+				description: "",
+				muscles: ""
+			}
+		});
+	};
+
 	render() {
+		const {
+			exercise: { title, description, muscles }
+		} = this.state;
+
+		const { categories, classes } = this.props;
 		return (
 			<React.Fragment>
 				<Button
@@ -30,6 +80,7 @@ class Create extends React.Component {
 					mini>
 					<AddIcon />
 				</Button>
+
 				<Dialog
 					open={this.state.open}
 					onClose={this.handleClose}
@@ -39,19 +90,46 @@ class Create extends React.Component {
 					</DialogTitle>
 					<DialogContent>
 						<DialogContentText>Please Fill Out the Form</DialogContentText>
-						<form>
+						<form noValidate autoComplete="off">
 							<TextField
-								autoFocus
-								margin="dense"
-								id="name"
-								label="Email Address"
-								type="email"
-								fullWidth
+								label="Title"
+								placeholder="Enter a Exercise Name"
+								value={title}
+								onChange={this.handleChange("title")}
+								margin="normal"
+								className={classes.FormControl}
+							/>
+							<br />
+							<FormControl className={classes.FormControl}>
+								<InputLabel htmlFor="muscles">Muscles</InputLabel>
+								<Select value={muscles} onChange={this.handleChange("muscles")}>
+									{categories.map(category => (
+										<MenuItem key={category} value={category}>
+											{category}
+										</MenuItem>
+									))}
+								</Select>
+							</FormControl>
+							<br />
+							<TextField
+								className={classes.FormControl}
+								label="Description"
+								multiline
+								rows="4"
+								placeholder="Enter a Description"
+								value={description}
+								onChange={this.handleChange("description")}
+								margin="normal"
 							/>
 						</form>
 					</DialogContent>
 					<DialogActions>
-						<Button color="primary">Create</Button>
+						<Button
+							color="primary"
+							variant="raised"
+							onClick={this.handleSubmit}>
+							Create
+						</Button>
 					</DialogActions>
 				</Dialog>
 			</React.Fragment>
@@ -59,4 +137,4 @@ class Create extends React.Component {
 	}
 }
 
-export default Create;
+export default withStyles(styles)(Create);

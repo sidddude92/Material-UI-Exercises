@@ -29,12 +29,22 @@ class App extends React.Component {
 			exercise: exercises.find(ex => ex.id === id)
 		}));
 	};
+
+	handleExerciseCreated = exercise => {
+		this.setState(({ exercises }) => ({
+			exercises: [...exercises, exercise]
+		}));
+	};
+
 	render() {
 		const exercises = this.getExercisesByMuscles();
 		const { category, exercise } = this.state;
 		return (
 			<div className="App">
-				<Header />
+				<Header
+					muscles={muscles}
+					onExerciseCreated={this.handleExerciseCreated}
+				/>
 				<Exercises
 					exercise={exercise}
 					exercises={exercises}
